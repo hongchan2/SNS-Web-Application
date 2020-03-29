@@ -1,5 +1,6 @@
 package com.hongchan.snsspringboot.config;
 
+import com.hongchan.snsspringboot.user.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,14 +12,15 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SercurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private MyUserDetailService userDetailsService;
 
     @Bean
     public BCryptPasswordEncoder encodePassword() {
@@ -37,10 +39,16 @@ public class SercurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home", "/profile/**", "/board/**")
                 .authenticated()
                 .anyRequest()
-                .permitAll().and()
+                .permitAll()
+            .and()
                 .formLogin()
                 .loginPage("/user/login")
                 .loginProcessingUrl("/user/login-process")
-                .defaultSuccessUrl("/home");
+                .defaultSuccessUrl("/home")
+            .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                .logoutSuccessUrl("/user/login")
+                .invalidateHttpSession(true);
     }
 }
