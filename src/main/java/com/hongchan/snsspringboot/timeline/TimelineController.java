@@ -27,6 +27,7 @@ public class TimelineController {
         final List<TimelineBoard> boardList = timelineService.getBoardList(user);
 
         // TODO: 20개만 가져오고, 나머지는 AJAX 통신으로 갱신하기
+        // TODO: 등록된 순서 반대로 가져오기 (ORDERED BY)
 
         model.addAttribute("user", user);
         model.addAttribute("boardlist", boardList);

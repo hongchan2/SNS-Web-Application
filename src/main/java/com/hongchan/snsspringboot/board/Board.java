@@ -20,7 +20,7 @@ public class Board {
 
     private String content;
 
-    private LocalDateTime datetime;
+    private LocalDateTime dateTime;
 
     @ManyToOne
     @JoinColumn(name = "BOARD_USER_ID")

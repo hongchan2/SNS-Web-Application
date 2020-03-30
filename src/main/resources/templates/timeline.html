@@ -42,13 +42,15 @@
     <div class="row marketing">
 
         <div class="col-lg-6" th:each="tboard : ${boardlist}">
-            <h4 th:text="|작성자 ${tboard.username}|">username</h4>
-            <p th:text="${#temporals.format(tboard.board.datetime, 'yyyy-MM-dd HH:mm')}"></p>
+            <h4 th:text="|글쓴이 ${tboard.username}|">username</h4>
+            <p th:text="|작성 시간 ${#temporals.format(tboard.board.dateTime, 'yyyy-MM-dd HH:mm')}|"></p>
             <p th:text="${tboard.board.title}">title</p>
             <p th:text="${tboard.board.content}">content</p>
-            <p th:text="${#lists.size(tboard.likes)}"></p>
+            <p th:text="|좋아요 개수 ${#lists.size(tboard.likes)}|"></p>
 
+            <p th:text="|등록된 댓글 ${#lists.size(tboard.comments)}|"></p>
             <div th:each="comment : ${tboard.comments}">
+                <p th:text="|작성 시간 ${#temporals.format(comment.dateTime, 'yyyy-MM-dd HH:mm')}|"></p>
                 <p th:text="${comment.username}"></p>
                 <p th:text="${comment.content}"></p>
             </div>
