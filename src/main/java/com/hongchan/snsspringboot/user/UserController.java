@@ -1,7 +1,6 @@
 package com.hongchan.snsspringboot.user;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     @Autowired
-    MyUserDetailService myUserDetailService;
+    UserAccountService userAccountService;
 
     @GetMapping("/user/login")
     public String loginForm() {
@@ -23,7 +22,7 @@ public class UserController {
 
     @PostMapping("/user/signup-process")
     public String signupProcess(@ModelAttribute User user) {
-        myUserDetailService.signUp(user);
+        userAccountService.signUp(user);
 
         return "redirect:/user/login";
     }

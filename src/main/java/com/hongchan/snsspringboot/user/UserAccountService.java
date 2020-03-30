@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class MyUserDetailService implements UserDetailsService {
+public class UserAccountService implements UserDetailsService {
 
     @Autowired
     private UserRespository userRepository;
@@ -28,17 +28,17 @@ public class MyUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        MyUserDetail userDetail = null;
+        UserAccount userAccount = null;
         Optional<User> user = userRepository.findById(s);
 
-        if(user.isPresent()) {
-            userDetail = new MyUserDetail();
-            userDetail.setUser(user.get());
-        }
-        else {
+        if(!user.isPresent()) {
             throw new UsernameNotFoundException("User Not Found [username " + s + "]");
         }
-        return userDetail;
+
+        userAccount = new UserAccount();
+        userAccount.setUser(user.get());
+
+        return userAccount;
     }
 
 }

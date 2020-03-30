@@ -1,8 +1,7 @@
 package com.hongchan.snsspringboot;
 
-import com.hongchan.snsspringboot.user.MyUserDetailService;
+import com.hongchan.snsspringboot.user.UserAccountService;
 import com.hongchan.snsspringboot.user.User;
-import com.hongchan.snsspringboot.user.UserRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -12,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class DataRunner implements ApplicationRunner {
 
     @Autowired
-    MyUserDetailService myUserDetailService;
+    UserAccountService userAccountService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -41,11 +40,11 @@ public class DataRunner implements ApplicationRunner {
         yongjae.setPassword("1234");
         yongjae.setEmail("yongjae@naver.com");
 
-        myUserDetailService.signUp(hongchan);
-        myUserDetailService.signUp(jiyun);
-        myUserDetailService.signUp(taesu);
-        myUserDetailService.signUp(jisung);
-        myUserDetailService.signUp(yongjae);
+        userAccountService.signUp(hongchan);
+        userAccountService.signUp(jiyun);
+        userAccountService.signUp(taesu);
+        userAccountService.signUp(jisung);
+        userAccountService.signUp(yongjae);
 
         /*
         홍찬과 지윤, 태수는 맞팔로우
