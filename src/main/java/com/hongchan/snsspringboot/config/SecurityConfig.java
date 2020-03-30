@@ -10,7 +10,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
+import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
+import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -36,8 +41,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/timeline", "/profile/**", "/board/**", "/follow/**")
                 .authenticated()
+                .antMatchers("/h2-console/**").permitAll()
                 .anyRequest()
                 .permitAll()
+            .and()
+                .csrf().ignoringAntMatchers("/h2-console/**")
+            .and()
+                .headers()
+                .addHeaderWriter(
+                        new StaticHeadersWriter(
+                                "X-Content-Security-Policy", "script-src 'self'"
+                        )
+                ).frameOptions().disable()
             .and()
                 .formLogin()
                 .loginPage("/user/login")
