@@ -1,18 +1,18 @@
 package com.hongchan.snsspringboot.user;
 
-import lombok.Data;
+import com.hongchan.snsspringboot.board.Board;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@Data
 @Entity
+@Getter @Setter
 public class User {
 
-    @Id @GeneratedValue
-    private int id;
-
+    @Id
+    @Column(name = "USER_ID")
     private String username;
 
     private String password;

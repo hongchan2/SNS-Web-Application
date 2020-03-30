@@ -1,4 +1,4 @@
-package com.hongchan.snsspringboot.Home;
+package com.hongchan.snsspringboot.timeline;
 
 import com.hongchan.snsspringboot.user.MyUserDetail;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

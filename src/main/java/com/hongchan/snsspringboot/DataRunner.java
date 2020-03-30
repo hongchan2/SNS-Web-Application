@@ -16,35 +16,49 @@ public class DataRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        User user1 = new User();
-        user1.setUsername("hongchan");
-        user1.setPassword("1234");
-        user1.setEmail("ipeter@naver.com");
+        User hongchan = new User();
+        hongchan.setUsername("hongchan");
+        hongchan.setPassword("1234");
+        hongchan.setEmail("ipeter@naver.com");
 
-        User user2 = new User();
-        user2.setUsername("jiyun");
-        user2.setPassword("1234");
-        user2.setEmail("jiyun@naver.com");
+        User jiyun = new User();
+        jiyun.setUsername("jiyun");
+        jiyun.setPassword("1234");
+        jiyun.setEmail("jiyun@naver.com");
 
-        User user3 = new User();
-        user3.setUsername("taesu");
-        user3.setPassword("1234");
-        user3.setEmail("taesu@naver.com");
+        User taesu = new User();
+        taesu.setUsername("taesu");
+        taesu.setPassword("1234");
+        taesu.setEmail("taesu@naver.com");
 
-        User user4 = new User();
-        user4.setUsername("wakgood");
-        user4.setPassword("1234");
-        user4.setEmail("wakgood@naver.com");
+        User jisung = new User();
+        jisung.setUsername("jisung");
+        jisung.setPassword("1234");
+        jisung.setEmail("jisung@naver.com");
 
-        User user5 = new User();
-        user5.setUsername("changmo");
-        user5.setPassword("1234");
-        user5.setEmail("changmo@naver.com");
+        User yongjae = new User();
+        yongjae.setUsername("yongjae");
+        yongjae.setPassword("1234");
+        yongjae.setEmail("yongjae@naver.com");
 
-        myUserDetailService.signUp(user1);
-        myUserDetailService.signUp(user2);
-        myUserDetailService.signUp(user3);
-        myUserDetailService.signUp(user4);
-        myUserDetailService.signUp(user5);
+        myUserDetailService.signUp(hongchan);
+        myUserDetailService.signUp(jiyun);
+        myUserDetailService.signUp(taesu);
+        myUserDetailService.signUp(jisung);
+        myUserDetailService.signUp(yongjae);
+
+        /*
+        홍찬과 지윤, 태수는 맞팔로우
+        홍찬은 지성, 용재와 팔로우
+
+        홍찬은 "홍찬 / 윤홍찬입니다 / (현재시간)" 게시판(1)을 작성
+        지윤은 "지윤 / 김지윤입니다 / (현재시간)" 게시판(2)을 작성
+        홍찬은 "홍찬2 / 윤홍찬입니다2 / (현재시간)" 게시판(3)을 작성
+
+        지윤은 게시판1에 좋아요를 함
+        지윤은 게시판1에 "댓글입니다 / (현재시간)" 댓글을 작성
+        지윤은 게시판1에 "댓글입니다2 / (현재시간)" 댓글을 작성
+         */
+
     }
 }
