@@ -7,19 +7,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class HomeController {
+public class TimelineController {
 
     @GetMapping("/")
     public String root() {
-        return "redirect:/home";
+        return "redirect:/timeline";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/timeline")
     public String home(@AuthenticationPrincipal MyUserDetail userDetail,
                        Model model) {
 
-        System.out.println(userDetail.getUsername());
+        System.out.println("[Current User] : " + userDetail.getUsername());
         model.addAttribute("user", userDetail.getUser());
-        return "home";
+        return "timeline";
     }
 }
