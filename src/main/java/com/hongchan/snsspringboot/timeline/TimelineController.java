@@ -18,7 +18,6 @@ public class TimelineController {
 
     @GetMapping("/timeline")
     public String home(@AuthUser User user, Model model) {
-        System.out.println("[Current User] : " + user.getUsername());
         model.addAttribute("user", user);
         return "timeline";
     }
