@@ -24,12 +24,12 @@ public class TimelineController {
 
     @GetMapping("/timeline")
     public String home(@AuthUser User user, Model model) {
-        final List<Timeline> timeline = timelineService.getTimeline(user);
+        final List<TimelineBoard> boardList = timelineService.getBoardList(user);
 
-        // TODO: 10개만 가져오고, 나머지는 AJAX 통신으로 갱신하기
+        // TODO: 20개만 가져오고, 나머지는 AJAX 통신으로 갱신하기
 
         model.addAttribute("user", user);
-        model.addAttribute("timeline", timeline);
+        model.addAttribute("boardlist", boardList);
         return "timeline";
     }
 }

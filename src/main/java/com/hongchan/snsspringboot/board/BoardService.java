@@ -18,7 +18,7 @@ public class BoardService {
     TimelineService timelineService;
 
     public void writePost(Board board, User user) {
-        board.setDateTime(LocalDateTime.now());
+        board.setDatetime(LocalDateTime.now());
         board.setWriteUser(user);
         boardRepository.save(board);
 
