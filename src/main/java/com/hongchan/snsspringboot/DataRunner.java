@@ -1,5 +1,7 @@
 package com.hongchan.snsspringboot;
 
+import com.hongchan.snsspringboot.board.Board;
+import com.hongchan.snsspringboot.board.BoardService;
 import com.hongchan.snsspringboot.user.UserAccountService;
 import com.hongchan.snsspringboot.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ public class DataRunner implements ApplicationRunner {
 
     @Autowired
     UserAccountService userAccountService;
+
+    @Autowired
+    BoardService boardService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -58,6 +63,19 @@ public class DataRunner implements ApplicationRunner {
         지윤은 게시판1에 "댓글입니다 / (현재시간)" 댓글을 작성
         지윤은 게시판1에 "댓글입니다2 / (현재시간)" 댓글을 작성
          */
+        Board board1 = new Board();
+        board1.setTitle("[Hongchan] Board1 Title");
+        board1.setContent("Board1 Content");
+        boardService.writePost(board1, hongchan);
 
+        Board board2 = new Board();
+        board2.setTitle("[Jiyun] Board2 Title");
+        board2.setContent("Board2 Content");
+        boardService.writePost(board2, jiyun);
+
+        Board board3 = new Board();
+        board3.setTitle("[Hongchan] Board3 Title");
+        board3.setContent("Board3 Content");
+        boardService.writePost(board3, hongchan);
     }
 }

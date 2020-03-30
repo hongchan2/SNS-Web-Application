@@ -32,13 +32,36 @@
         <h3 class="text-muted">Chanstagram</h3>
     </div>
 
-    <div class="jumbotron">
-        <h1>팔로우 하는 사람이 없습니다 :(</h1>
+    <div class="jumbotron" th:if="${timeline.empty}">
+        <br><br>
+        <h1>게시글이 없습니다 :(</h1>
         <p class="lead">팔로우 추천 바로 가기</p>
         <p><a class="btn btn-lg btn-success" href="#" role="button">바로가기</a></p>
     </div>
 
     <div class="row marketing">
+        <div class="col-lg-6">
+            <h4>Subheading</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+            <h4>Subheading</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
+        <div class="col-lg-6">
+            <h4>Subheading</h4>
+            <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
+
+            <h4>Subheading</h4>
+            <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
+
+            <h4>Subheading</h4>
+            <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        </div>
+
         <div class="col-lg-6">
             <h4>Subheading</h4>
             <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
