@@ -24,10 +24,9 @@ public class TimelineController {
 
     @GetMapping("/timeline")
     public String home(@AuthUser User user, Model model) {
-        final List<TimelineBoard> boardList = timelineService.getTimelineBoardList(user.getUsername());
+        List<TimelineBoard> boardList = timelineService.getTimelineBoardList(user.getUsername());
 
         // TODO: 20개만 가져오고, 나머지는 AJAX 통신으로 갱신하기
-        // TODO: 등록된 순서 반대로 가져오기 (ORDERED BY)
 
         model.addAttribute("user", user);
         model.addAttribute("boardlist", boardList);

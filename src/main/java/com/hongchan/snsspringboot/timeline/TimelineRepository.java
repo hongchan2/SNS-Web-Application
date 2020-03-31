@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface TimelineRepository extends JpaRepository<Timeline, Integer> {
 
-    List<Timeline> findByUser_Username(String username);
+    List<Timeline> findByUser_UsernameOrderByBoard_DateTimeDesc(String username);
 }

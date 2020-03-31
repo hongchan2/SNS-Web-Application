@@ -23,18 +23,18 @@ public class TimelineService {
     CommentService commentService;
 
     public List<TimelineBoard> getTimelineBoardList(String username) {
-        final List<Timeline> timeline = timelineRepository.findByUser_Username(username);
+        final List<Timeline> timelineList = timelineRepository.findByUser_UsernameOrderByBoard_DateTimeDesc(username);
 
         List<TimelineBoard> boardList = new ArrayList<>();
-        for(int i = 0; i < timeline.size(); i++) {
-            TimelineBoard board = new TimelineBoard();
+        for(Timeline timeline : timelineList){
+            TimelineBoard timelineBoard = new TimelineBoard();
 
-            board.setUsername(timeline.get(i).getUser().getUsername());
-            board.setBoard(timeline.get(i).getBoard());
-            board.setLikeList(likesService.getLikeList(board.getBoard().getId()));
-            board.setCommentList(commentService.getCommentList(board.getBoard().getId()));
+            timelineBoard.setBoard(timeline.getBoard());
+            timelineBoard.setUsername(timelineBoard.getBoard().getWriteUser().getUsername());
+            timelineBoard.setLikeList(likesService.getLikeList(timelineBoard.getBoard().getId()));
+            timelineBoard.setCommentList(commentService.getCommentList(timelineBoard.getBoard().getId()));
 
-            boardList.add(board);
+            boardList.add(timelineBoard);
         }
 
         return boardList;
