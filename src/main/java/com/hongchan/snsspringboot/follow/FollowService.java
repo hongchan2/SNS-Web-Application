@@ -15,13 +15,13 @@ public class FollowService {
     @Autowired
     FollowingRepository followingRepository;
 
-    public List<User> getFollowerList(User user) {
-        final List<User> followerList = followerRepository.findBySrcUser(user);
+    public List<User> getFollowerList(String username) {
+        final List<User> followerList = followerRepository.findBySrcUser_Username(username);
         return followerList;
     }
 
-    public List<User> getFollowingList(User user) {
-        final List<User> followingList = followingRepository.findBySrcUser(user);
+    public List<User> getFollowingList(String username) {
+        final List<User> followingList = followingRepository.findBySrcUser_Username(username);
         return followingList;
     }
 

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TimelineRepository extends JpaRepository<Timeline, Integer> {
-    List<Timeline> findByUser(User user);
+    List<Timeline> findByUser_Username(String username);
 }

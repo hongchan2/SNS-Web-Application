@@ -1,7 +1,5 @@
 package com.hongchan.snsspringboot.user;
 
-import com.hongchan.snsspringboot.follow.FollowService;
-import com.hongchan.snsspringboot.follow.Follower;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -9,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,9 +17,6 @@ public class UserAccountService implements UserDetailsService {
 
     @Autowired
     private BCryptPasswordEncoder encoder;
-
-    @Autowired
-    private FollowService followService;
 
     // Sign up process
     public void signUp(User user) {
@@ -45,16 +39,6 @@ public class UserAccountService implements UserDetailsService {
         userAccount.setUser(user.get());
 
         return userAccount;
-    }
-
-    public List<User> getFollowerList(User user) {
-        final List<User> followerList = followService.getFollowerList(user);
-        return followerList;
-    }
-
-    public List<User> getFollowingList(User user) {
-        final List<User> followingList = followService.getFollowingList(user);
-        return followingList;
     }
 
 }

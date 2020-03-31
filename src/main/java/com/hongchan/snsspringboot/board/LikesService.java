@@ -11,8 +11,8 @@ public class LikesService {
     @Autowired
     LikesRepository likesRepository;
 
-    public List<Likes> getLikeList(Board board) {
-        final List<Likes> likesList = likesRepository.findByBoard(board);
+    public List<Likes> getLikeList(Long boardId) {
+        final List<Likes> likesList = likesRepository.findByBoard_Id(boardId);
         return likesList;
     }
 }

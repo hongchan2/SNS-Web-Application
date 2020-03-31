@@ -1,5 +1,6 @@
 package com.hongchan.snsspringboot.user;
 
+import com.hongchan.snsspringboot.follow.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,9 @@ public class UserController {
 
     @Autowired
     UserAccountService userAccountService;
+
+    @Autowired
+    FollowService followService;
 
     @GetMapping("/user/login")
     public String loginForm() {
@@ -42,11 +46,9 @@ public class UserController {
             3. User로 TimelineBoard 가져오기 - 추후에 추가하기로
          */
 
-//        userAccountService.getFollo
-
         model.addAttribute("user", user);
-        model.addAttribute("follwer");
-        model.addAttribute("following");
+        model.addAttribute("follwer", followService.getFollowerList(username));
+        model.addAttribute("following", followService.getFollowingList(username));
 
         return "/user/profile";
     }

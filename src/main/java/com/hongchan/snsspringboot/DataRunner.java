@@ -2,6 +2,7 @@ package com.hongchan.snsspringboot;
 
 import com.hongchan.snsspringboot.board.Board;
 import com.hongchan.snsspringboot.board.BoardService;
+import com.hongchan.snsspringboot.board.Comment;
 import com.hongchan.snsspringboot.user.UserAccountService;
 import com.hongchan.snsspringboot.user.User;
 import org.springframework.beans.factory.annotation.Autowired;

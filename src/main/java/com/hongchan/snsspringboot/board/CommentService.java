@@ -11,8 +11,8 @@ public class CommentService {
     @Autowired
     CommentRepository commentRepository;
 
-    public List<Comment> getCommentList(Board board) {
-        final List<Comment> commentList = commentRepository.findByBoard(board);
+    public List<Comment> getCommentList(Long boradId) {
+        final List<Comment> commentList = commentRepository.findByBoard_Id(boradId);
         return commentList;
     }
 }
