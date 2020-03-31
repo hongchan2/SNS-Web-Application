@@ -17,8 +17,8 @@ public class TimelineBoard {
 
     private Board board;
 
-    private List<Comment> comments = new ArrayList<>();
+    private List<Comment> commentList = new ArrayList<>();
 
-    private List<Likes> likes = new ArrayList<>();
+    private List<Likes> likeList = new ArrayList<>();
 
 }

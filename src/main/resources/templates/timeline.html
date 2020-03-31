@@ -44,15 +44,18 @@
         <div class="col-lg-6" th:each="tboard : ${boardlist}">
             <br><hr>
 
-            <h4 th:text="|글쓴이 ${tboard.username}|">username</h4>
+            <h4>
+                <span>작성자 </span>
+                <a href="#" th:href="@{/user/} + ${tboard.username}" th:text="${tboard.username}"></a>
+            </h4>
             <p th:text="|작성 시간 ${#temporals.format(tboard.board.dateTime, 'yyyy-MM-dd HH:mm')}|"></p>
             <p th:text="${tboard.board.title}">title</p>
             <p th:text="${tboard.board.content}">content</p>
-            <p th:text="|좋아요 개수 ${#lists.size(tboard.likes)}|"></p>
+            <p th:text="|좋아요 개수 ${#lists.size(tboard.likeList)}|"></p>
 
-            <p th:text="|등록된 댓글 ${#lists.size(tboard.comments)}|"></p>
+            <p th:text="|등록된 댓글 ${#lists.size(tboard.commentList)}|"></p>
 
-            <div th:each="comment : ${tboard.comments}">
+            <div th:each="comment : ${tboard.commentList}">
                 <p th:text="|작성 시간 ${#temporals.format(comment.dateTime, 'yyyy-MM-dd HH:mm')}|"></p>
                 <p th:text="${comment.username}"></p>
                 <p th:text="${comment.content}"></p>

@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface FollowingRepository extends JpaRepository<Following, Integer> {
-    List<User> findBySrcUser_Username(String username);
+    List<Following> findBySrcUser_Username(String username);
 }

@@ -29,7 +29,7 @@ public class UserAccountService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserAccount userAccount = null;
-        Optional<User> user = userRepository.findById(s);
+        final Optional<User> user = userRepository.findById(s);
 
         if(!user.isPresent()) {
             throw new UsernameNotFoundException("User Not Found [username " + s + "]");
@@ -39,6 +39,16 @@ public class UserAccountService implements UserDetailsService {
         userAccount.setUser(user.get());
 
         return userAccount;
+    }
+
+    public User getUser(String username) {
+        final Optional<User> user = userRepository.findById(username);
+
+        if(!user.isPresent()) {
+            throw new UsernameNotFoundException("User Not Found [username " + username + "]");
+        }
+
+        return user.get();
     }
 
 }

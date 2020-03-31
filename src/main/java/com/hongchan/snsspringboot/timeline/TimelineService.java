@@ -31,8 +31,8 @@ public class TimelineService {
 
             board.setUsername(timeline.get(i).getUser().getUsername());
             board.setBoard(timeline.get(i).getBoard());
-            board.setLikes(likesService.getLikeList(board.getBoard().getId()));
-            board.setComments(commentService.getCommentList(board.getBoard().getId()));
+            board.setLikeList(likesService.getLikeList(board.getBoard().getId()));
+            board.setCommentList(commentService.getCommentList(board.getBoard().getId()));
 
             boardList.add(board);
         }
