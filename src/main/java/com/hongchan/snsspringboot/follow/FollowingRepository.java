@@ -2,6 +2,7 @@ package com.hongchan.snsspringboot.follow;
 
 import com.hongchan.snsspringboot.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,4 +13,7 @@ public interface FollowingRepository extends JpaRepository<Following, Integer> {
     Following findBySrcUser_UsernameAndDestUser_Username(String srcUser_Username, String destUser_Username);
 
     long countBySrcUser_Username(String srcUser_Username);
+
+    @Transactional
+    void deleteBySrcUser_UsernameAndDestUser_Username(String srcUser_Username, String destUser_Username);
 }

@@ -18,16 +18,18 @@ public class FollowController {
     @PostMapping("/follow/{username}")
     public @ResponseBody FollowCntInfo followUser(@AuthUser User user,
                                            @PathVariable String username) {
-        System.out.println("============");
-        System.out.println(username);
-        System.out.println("============");
-
         followService.follow(user, username);
 
         return followService.getFollowCnt(username);
     }
 
-    // make unfollow postmapping
+    @PostMapping("/unfollow/{username}")
+    public @ResponseBody FollowCntInfo unfollowUser(@AuthUser User user,
+                                                    @PathVariable String username) {
+        followService.unFollow(user, username);
+
+        return followService.getFollowCnt(username);
+    }
 
 
 }

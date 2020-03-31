@@ -19,12 +19,12 @@ public class FollowService {
     @Autowired
     UserAccountService userAccountService;
 
-    public List<Follower> getFollowerList(String username) {
-        return followerRepository.findBySrcUser_Username(username);
-    }
-
     public List<Following> getFollowingList(String username) {
         return followingRepository.findBySrcUser_Username(username);
+    }
+
+    public List<Follower> getFollowerList(String username) {
+        return followerRepository.findBySrcUser_Username(username);
     }
 
     public FollowCntInfo getFollowCnt(String username) {
@@ -33,6 +33,16 @@ public class FollowService {
         cntInfo.setFollowing(followingRepository.countBySrcUser_Username(username));
 
         return cntInfo;
+    }
+
+    public boolean isFollowing(String src, String dest) {
+        Following following = followingRepository.findBySrcUser_UsernameAndDestUser_Username(src, dest);
+        return (following != null) ? true : false;
+    }
+
+    public boolean isFollower(String src, String dest) {
+        Follower follower = followerRepository.findByDestUser_UsernameAndSrcUser_Username(src, dest);
+        return (follower != null) ? true : false;
     }
 
     public void follow(User srcUser, String username) {
@@ -53,11 +63,8 @@ public class FollowService {
     public void unFollow(User srcUser, String username) {
         User destUser = userAccountService.getUser(username);
 
-        Following following = followingRepository.findBySrcUser_UsernameAndDestUser_Username(srcUser.getUsername(), destUser.getUsername());
-        Follower follower = followerRepository.findByDestUser_UsernameAndSrcUser_Username(destUser.getUsername(), srcUser.getUsername());
-
-        followingRepository.delete(following);
-        followerRepository.delete(follower);
+        followingRepository.deleteBySrcUser_UsernameAndDestUser_Username(srcUser.getUsername(), destUser.getUsername());
+        followerRepository.deleteBySrcUser_UsernameAndDestUser_Username(destUser.getUsername(), srcUser.getUsername());
     }
 
 }

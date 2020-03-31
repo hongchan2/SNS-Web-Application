@@ -26,7 +26,12 @@
             <ul class="nav nav-pills pull-right">
                 <li role="presentation"><a href="#" th:href="@{/}">타임라인</a></li>
                 <li role="presentation"><a href="#" th:href="@{/board/create}">게시글 작성</a></li>
-                <li role="presentation" class="active"><a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username} 프로필|">프로필</a></li>
+                <li th:if="${isLoginUser}" role="presentation" class="active">
+                    <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username} 프로필|">프로필</a>
+                </li>
+                <li th:unless="${isLoginUser}" role="presentation">
+                    <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username} 프로필|">프로필</a>
+                </li>
                 <li role="presentation"><a href="#" th:href="@{/user/logout}">로그아웃</a></li>
             </ul>
         </nav>
@@ -35,11 +40,16 @@
 
     <div class="jumbotron">
         <h2>
-            <span th:text="${profilename}"></span>&nbsp;&nbsp;
+            <span th:text="${profileName}"></span>&nbsp;&nbsp;
+
 <!--            if (자신이 프로필이 아니면)-->
 <!--                if (팔로우를 하지 않았다면) -> 팔로우 버튼-->
 <!--                else (팔로우를 했다면) -> 언팔로우 버튼-->
-            <button id="follow" class="btn btn-xs btn-primary" href="#">팔로우</button>
+            <span th:unless="${isLoginUser}">
+<!--                <button id="follow"  class="btn btn-xs btn-primary" href="#">팔로우</button>-->
+                <button id="follow" class="btn btn-xs" href="#" th:classappend="${isFollowingUser}?btn-success:btn-primary"
+                        th:text="${isFollowingUser}?언팔로우:팔로우">default</button>
+            </span>
         </h2>
         <br><br>
 
@@ -64,24 +74,58 @@
 <script type="text/javascript" th:inline="javascript">
 
     /* <![CDATA[ */
-    var followUrl = /*[[ @{/follow/} + ${profilename} ]]*/ 'defaultUrl';
+    var followUrl = /*[[ @{/follow/} + ${profileName} ]]*/ 'defaultUrl';
+    var unfollowUrl = /*[[ @{/unfollow/} + ${profileName} ]]*/ 'defaultUrl';
     var csrfHeaderName = /*[[ ${_csrf.headerName} ]]*/ 'default';
     var csrfToken = /*[[ ${_csrf.token} ]]*/ 'default';
 
     $("#follow").click(function(){
 
+        var requestUrl = '';
+
+        if($("#follow").hasClass("btn-success") === true){
+            // 팔로우 중인 상태
+
+            requestUrl = unfollowUrl;
+        }
+        else{
+            // 언팔로우 중인 상태
+
+            requestUrl = followUrl;
+        }
+
         $.ajax({
-            url : followUrl,
+            url : requestUrl,
             type : "post",
             dataType : "json",
             data : { "test" : "test" },
             beforeSend : function(xhr) {
+                // Spring Security Setting
+
                 xhr.setRequestHeader(csrfHeaderName, csrfToken);
             },
             success : function(response) {
                 // Response Type : { 'follower' : num, 'following' : num }
+
+                // 팔로워, 팔로잉 숫자 변경
                 $('#follower').html('팔로워 ' + response.follower);
                 $('#following').html('팔로잉 ' + response.following);
+
+                // 버튼 색상, text 변경
+                if($("#follow").hasClass("btn-success") === true){
+                    // 팔로우 -> 언팔로우 상태
+
+                    $("#follow").html("팔로우");
+                    $("#follow").removeClass("btn-success");
+                    $("#follow").addClass("btn-primary");
+                }
+                else{
+                    // 언팔로우 -> 팔로우 상태
+
+                    $("#follow").html("언팔로우");
+                    $("#follow").removeClass("btn-primary");
+                    $("#follow").addClass("btn-success");
+                }
             },
             error : function(request, status, error) {
                 alert("팔로우 요청 실패");
