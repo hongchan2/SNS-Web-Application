@@ -23,7 +23,7 @@ public class TimelineService {
     @Autowired
     CommentService commentService;
 
-    public List<TimelineBoard> getBoardList(User user) {
+    public List<TimelineBoard> getTimelineBoardList(User user) {
         final List<Timeline> timeline = timelineRepository.findByUser(user);
 
         List<TimelineBoard> boardList = new ArrayList<>();
@@ -32,8 +32,8 @@ public class TimelineService {
 
             board.setUsername(timeline.get(i).getUser().getUsername());
             board.setBoard(timeline.get(i).getBoard());
-            board.setLikes(likesService.getLikes(board.getBoard()));
-            board.setComments(commentService.getComments(board.getBoard()));
+            board.setLikes(likesService.getLikeList(board.getBoard()));
+            board.setComments(commentService.getCommentList(board.getBoard()));
 
             boardList.add(board);
         }

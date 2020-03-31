@@ -23,10 +23,7 @@ public class BoardController {
 
     @PostMapping("/board/create-process")
     public String boardCreateProcess(@AuthUser User user, @ModelAttribute Board board) {
-        System.out.println(board.getTitle());
-        System.out.println(board.getContent());
         boardService.writePost(board, user);
-
         return "redirect:/";
     }
 

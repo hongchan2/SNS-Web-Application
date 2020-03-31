@@ -25,7 +25,7 @@
             <ul class="nav nav-pills pull-right">
                 <li role="presentation"><a href="#" th:href="@{/}">타임라인</a></li>
                 <li role="presentation" class="active"><a href="#" th:href="@{/board/create}">게시글 작성</a></li>
-                <li role="presentation"><a href="#" th:href="@{/profile/} + ${user.username}" th:text="|${user.username} 프로필|">프로필</a></li>
+                <li role="presentation"><a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username} 프로필|">프로필</a></li>
                 <li role="presentation"><a href="#" th:href="@{/user/logout}">로그아웃</a></li>
             </ul>
         </nav>
