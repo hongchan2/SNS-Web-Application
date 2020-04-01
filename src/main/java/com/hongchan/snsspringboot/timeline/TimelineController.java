@@ -30,6 +30,7 @@ public class TimelineController {
 
     @GetMapping("/timeline")
     public String timeline(@AuthUser User user, Model model) {
+        timelineService.beforeAccessTimeline(user);
         List<TimelineBoard> timelineBoardList = timelineService.getTimelineBoardList(user.getUsername(),
                 PageRequest.of(0, 10, Sort.Direction.DESC, "Board_dateTime"));
         List<User> randomUserList = userAccountService.getFiveRandomUser(user);

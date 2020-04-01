@@ -1,9 +1,10 @@
 package com.hongchan.snsspringboot.timeline;
 
-import com.hongchan.snsspringboot.board.Board;
-import com.hongchan.snsspringboot.board.BoardRepository;
-import com.hongchan.snsspringboot.board.CommentService;
-import com.hongchan.snsspringboot.board.LikesService;
+import com.hongchan.snsspringboot.board.*;
+import com.hongchan.snsspringboot.follow.FollowCntInfo;
+import com.hongchan.snsspringboot.follow.FollowService;
+import com.hongchan.snsspringboot.follow.Follower;
+import com.hongchan.snsspringboot.follow.Following;
 import com.hongchan.snsspringboot.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +29,12 @@ public class TimelineService {
     @Autowired
     BoardRepository boardRepository;
 
+    @Autowired
+    FollowService followService;
+
+    @Autowired
+    BoardService boardService;
+
     public List<TimelineBoard> getTimelineBoardList(String username, Pageable pageable) {
         final Page<Timeline> timelinePage = timelineRepository.findAllByUser_Username(username, pageable);
 
@@ -47,6 +54,8 @@ public class TimelineService {
     }
 
     public void addTimeline(User user, Board board) {
+        if(timelineRepository.findByUser_UsernameAndBoard_id(user.getUsername(), board.getId()) != null) return;
+
         Timeline timeline = new Timeline();
         timeline.setUser(user);
         timeline.setBoard(board);
@@ -72,6 +81,27 @@ public class TimelineService {
 
         for(Board board : boardList) {
             removeTimeline(srcUser, board);
+        }
+    }
+
+    public void beforeAccessTimeline(User user) {
+        List<Following> followingList = followService.getFollowingList(user.getUsername());
+
+        for(Following following : followingList) {
+            long follower = followService.getFollowCnt(following.getDestUser().getUsername()).getFollower();
+
+            if(follower < 500L) {
+                // SmallFollower 전략 : No Operation
+            }
+            else {
+                // BigFollower 전략 : dest 유저의 게시물을 모두 가져와 user의 타임라인에 추가
+
+                List<Board> boardList = boardService.getBoardList(following.getDestUser().getUsername());
+
+                for(Board board : boardList) {
+                    addTimeline(user, board);
+                }
+            }
         }
     }
 

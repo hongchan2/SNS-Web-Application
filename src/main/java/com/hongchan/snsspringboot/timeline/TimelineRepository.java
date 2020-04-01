@@ -9,6 +9,8 @@ public interface TimelineRepository extends JpaRepository<Timeline, Integer> {
 
     Page<Timeline> findAllByUser_Username(String username, Pageable pageable);
 
+    Timeline findByUser_UsernameAndBoard_id(String username, long board_Id);
+
     @Transactional
     void deleteByUser_UsernameAndBoard_Id(String user_Username, long board_Id);
 }

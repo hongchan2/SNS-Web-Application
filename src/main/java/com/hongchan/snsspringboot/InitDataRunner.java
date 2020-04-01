@@ -60,13 +60,20 @@ public class InitDataRunner implements ApplicationRunner {
         userAccountService.signUp(jisung);
         userAccountService.signUp(yongjae);
 
-        for(int i = 0; i < 20; i++) {
+        /*
+            10000명의 팔로워를 가진 유저가 게시물에 글을 쓰는 테스트
+            -> 엄청난 딜레이 발생
+            -> 팔로워 수에 따른 전략으로 해결!
+         */
+
+        for(int i = 0; i < 500; i++) {
             User user = new User();
             user.setUsername("user" + i);
             user.setPassword("1234");
             user.setEmail("user" + i + "@naver.com");
 
             userAccountService.signUp(user);
+            followService.follow(user, hongchan.getUsername());
         }
 
         /*
@@ -101,8 +108,13 @@ public class InitDataRunner implements ApplicationRunner {
         board3.setContent("Board3 Content");
         boardService.writePost(hongchan, board3);
 
+        /*
+            타임라인에 10000 개 정도의 게시물 테스트
+            -> 속도 저하 문제
+            -> 페이징으로 속도 개선 완료
+         */
 //        int loopCnt = 10000;
-        int loopCnt = 23;
+        int loopCnt = 10;
         for(int i = 0; i < loopCnt; i++) {
             Board board = new Board();
             board.setTitle("Test Title " + i);

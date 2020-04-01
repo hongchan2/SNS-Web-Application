@@ -1,11 +1,10 @@
 package com.hongchan.snsspringboot.user;
 
-import com.hongchan.snsspringboot.board.Board;
+import com.hongchan.snsspringboot.follow.strategy.FollowerStrategy;
+import com.hongchan.snsspringboot.follow.strategy.SmallFollowerStrategy;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter @Setter

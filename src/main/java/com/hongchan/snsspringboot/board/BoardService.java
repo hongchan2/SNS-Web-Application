@@ -1,5 +1,6 @@
 package com.hongchan.snsspringboot.board;
 
+import com.hongchan.snsspringboot.follow.FollowCntInfo;
 import com.hongchan.snsspringboot.follow.FollowService;
 import com.hongchan.snsspringboot.follow.Follower;
 import com.hongchan.snsspringboot.timeline.TimelineService;
@@ -30,12 +31,19 @@ public class BoardService {
         // 해당 유저가 쓴 글은 해당 유저의 타임라인에 추가
         timelineService.addTimeline(user, board);
 
-        // 해당 유저를 팔로우하는 유저들(해당 유저의 팔로워들)의 타임라인에 추가
-        List<Follower> followerList = followService.getFollowerList(user.getUsername());
+        long followerCnt = followService.getFollowCnt(user.getUsername()).getFollower();
+        if(followerCnt < 500L) {
+            // SmallFollower 전략 : 해당 유저를 팔로우하는 유저들(해당 유저의 팔로워들)의 타임라인에 추가
 
-        for(Follower follower : followerList) {
-            User destUser = follower.getDestUser();
-            timelineService.addTimeline(destUser, board);
+            List<Follower> followerList = followService.getFollowerList(user.getUsername());
+
+            for(Follower follower : followerList) {
+                User destUser = follower.getDestUser();
+                timelineService.addTimeline(destUser, board);
+            }
+        }
+        else {
+            // BigFollower 전략 : No Operation
         }
     }
 

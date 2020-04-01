@@ -16,4 +16,5 @@ public interface FollowingRepository extends JpaRepository<Following, Integer> {
 
     @Transactional
     void deleteBySrcUser_UsernameAndDestUser_Username(String srcUser_Username, String destUser_Username);
+
 }
