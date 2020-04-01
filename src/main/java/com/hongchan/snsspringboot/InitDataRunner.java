@@ -60,6 +60,15 @@ public class InitDataRunner implements ApplicationRunner {
         userAccountService.signUp(jisung);
         userAccountService.signUp(yongjae);
 
+        for(int i = 0; i < 20; i++) {
+            User user = new User();
+            user.setUsername("user" + i);
+            user.setPassword("1234");
+            user.setEmail("user" + i + "@naver.com");
+
+            userAccountService.signUp(user);
+        }
+
         /*
         홍찬과 지윤, 태수는 맞팔로우
         홍찬은 지성, 용재와 팔로우
@@ -77,20 +86,20 @@ public class InitDataRunner implements ApplicationRunner {
         followService.follow(jiyun, hongchan.getUsername());
         followService.follow(taesu, hongchan.getUsername());
 
-//        Board board1 = new Board();
-//        board1.setTitle("[Hongchan] Board1 Title");
-//        board1.setContent("Board1 Content");
-//        boardService.writePost(hongchan, board1);
-//
-//        Board board2 = new Board();
-//        board2.setTitle("[Jiyun] Board2 Title");
-//        board2.setContent("Board2 Content");
-//        boardService.writePost(jiyun, board2);
-//
-//        Board board3 = new Board();
-//        board3.setTitle("[Hongchan] Board3 Title");
-//        board3.setContent("Board3 Content");
-//        boardService.writePost(hongchan, board3);
+        Board board1 = new Board();
+        board1.setTitle("[Hongchan] Board1 Title");
+        board1.setContent("Board1 Content");
+        boardService.writePost(hongchan, board1);
+
+        Board board2 = new Board();
+        board2.setTitle("[Jiyun] Board2 Title");
+        board2.setContent("Board2 Content");
+        boardService.writePost(jiyun, board2);
+
+        Board board3 = new Board();
+        board3.setTitle("[Hongchan] Board3 Title");
+        board3.setContent("Board3 Content");
+        boardService.writePost(hongchan, board3);
 
 //        int loopCnt = 10000;
         int loopCnt = 23;
@@ -108,6 +117,7 @@ public class InitDataRunner implements ApplicationRunner {
             comment2.setContent("Test Comment2 - jiyun " + i);
             commentService.writeComment(jiyun, board, comment2);
         }
+
 
         Board board = new Board();
         board.setTitle("longlong title longlong title longlong title");

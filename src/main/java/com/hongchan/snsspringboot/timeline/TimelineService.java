@@ -31,14 +31,6 @@ public class TimelineService {
     public List<TimelineBoard> getTimelineBoardList(String username, Pageable pageable) {
         final Page<Timeline> timelinePage = timelineRepository.findAllByUser_Username(username, pageable);
 
-        System.out.println("==============");
-        System.out.println("ToTal Page " + timelinePage.getTotalPages());
-        System.out.println("ToTal Element " + timelinePage.getTotalElements());
-        for(Timeline timeline : timelinePage.getContent()) {
-            System.out.println(timeline.getBoard().getTitle());
-        }
-        System.out.println("==============");
-
         List<TimelineBoard> boardList = new ArrayList<>();
         for(Timeline timeline : timelinePage.getContent()) {
             TimelineBoard timelineBoard = new TimelineBoard();

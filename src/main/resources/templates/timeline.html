@@ -33,20 +33,24 @@
     <br>
 
     <div class="jumbotron">
-        <h2 th:if="${boardlist.empty}">게시글이 없습니다 :(</h2>
+        <h2 th:if="${boardList.empty}">게시글이 없습니다 :(</h2>
         <p class="lead">팔로우 할 사용자 추천</p>
         <h5>랜덤으로 5명의 사용자를 추천합니다.</h5>
 
-        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
-        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
-        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
-        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
-        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>
+
+        <span th:each="randomUser : ${randomUserList}">
+            <a href="#" th:href="@{/user/} + ${randomUser.username}" th:text="${randomUser.username}">users</a>&nbsp;
+        </span>
+<!--        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;-->
+<!--        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;-->
+<!--        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;-->
+<!--        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;-->
+<!--        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>-->
     </div>
 
     <div id="boards" class="row marketing">
 
-        <div class="board col-lg-6" th:each="tboard : ${boardlist}">
+        <div class="board col-lg-6" th:each="tboard : ${boardList}">
             <h4>
                 <a href="#" th:href="@{/user/} + ${tboard.username}" th:text="${tboard.username}"></a>&nbsp;&nbsp;&nbsp;
             </h4>

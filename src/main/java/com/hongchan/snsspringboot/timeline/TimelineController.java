@@ -2,6 +2,7 @@ package com.hongchan.snsspringboot.timeline;
 
 import com.hongchan.snsspringboot.user.AuthUser;
 import com.hongchan.snsspringboot.user.User;
+import com.hongchan.snsspringboot.user.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,9 @@ public class TimelineController {
     @Autowired
     TimelineService timelineService;
 
+    @Autowired
+    UserAccountService userAccountService;
+
     @GetMapping("/")
     public String root() {
         return "redirect:/timeline";
@@ -28,9 +32,11 @@ public class TimelineController {
     public String timeline(@AuthUser User user, Model model) {
         List<TimelineBoard> timelineBoardList = timelineService.getTimelineBoardList(user.getUsername(),
                 PageRequest.of(0, 10, Sort.Direction.DESC, "Board_dateTime"));
+        List<User> randomUserList = userAccountService.getFiveRandomUser(user);
 
+        model.addAttribute("randomUserList", randomUserList);
         model.addAttribute("user", user);
-        model.addAttribute("boardlist", timelineBoardList);
+        model.addAttribute("boardList", timelineBoardList);
         return "timeline";
     }
 
