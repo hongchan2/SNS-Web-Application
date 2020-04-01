@@ -2,6 +2,8 @@ package com.hongchan.snsspringboot;
 
 import com.hongchan.snsspringboot.board.Board;
 import com.hongchan.snsspringboot.board.BoardService;
+import com.hongchan.snsspringboot.board.Comment;
+import com.hongchan.snsspringboot.board.CommentService;
 import com.hongchan.snsspringboot.follow.FollowService;
 import com.hongchan.snsspringboot.user.UserAccountService;
 import com.hongchan.snsspringboot.user.User;
@@ -21,6 +23,9 @@ public class InitDataRunner implements ApplicationRunner {
 
     @Autowired
     FollowService followService;
+
+    @Autowired
+    CommentService commentService;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -72,35 +77,46 @@ public class InitDataRunner implements ApplicationRunner {
         followService.follow(jiyun, hongchan.getUsername());
         followService.follow(taesu, hongchan.getUsername());
 
-        Board board1 = new Board();
-        board1.setTitle("[Hongchan] Board1 Title");
-        board1.setContent("Board1 Content");
-        boardService.writePost(hongchan, board1);
-
-        Board board2 = new Board();
-        board2.setTitle("[Jiyun] Board2 Title");
-        board2.setContent("Board2 Content");
-        boardService.writePost(jiyun, board2);
-
-        Board board3 = new Board();
-        board3.setTitle("[Hongchan] Board3 Title");
-        board3.setContent("Board3 Content");
-        boardService.writePost(hongchan, board3);
+//        Board board1 = new Board();
+//        board1.setTitle("[Hongchan] Board1 Title");
+//        board1.setContent("Board1 Content");
+//        boardService.writePost(hongchan, board1);
+//
+//        Board board2 = new Board();
+//        board2.setTitle("[Jiyun] Board2 Title");
+//        board2.setContent("Board2 Content");
+//        boardService.writePost(jiyun, board2);
+//
+//        Board board3 = new Board();
+//        board3.setTitle("[Hongchan] Board3 Title");
+//        board3.setContent("Board3 Content");
+//        boardService.writePost(hongchan, board3);
 
 //        int loopCnt = 10000;
-        int loopCnt = 100;
+        int loopCnt = 23;
         for(int i = 0; i < loopCnt; i++) {
             Board board = new Board();
-            board.setTitle("Test Title" + i);
-            board.setContent("Test Content" + i);
+            board.setTitle("Test Title " + i);
+            board.setContent("Test Content " + i);
             boardService.writePost(hongchan, board);
+
+            Comment comment1 = new Comment();
+            comment1.setContent("Test Comment1 - taesu " + i);
+            commentService.writeComment(taesu, board, comment1);
+
+            Comment comment2 = new Comment();
+            comment2.setContent("Test Comment2 - jiyun " + i);
+            commentService.writeComment(jiyun, board, comment2);
         }
-        System.out.println("=====INIT DATA RUNNER DONE====");
 
         /*
             지윤은 게시판1에 좋아요를 함
             지윤은 게시판1에 "댓글입니다 / (현재시간)" 댓글을 작성
             지윤은 게시판1에 "댓글입니다2 / (현재시간)" 댓글을 작성
          */
+
+
+
+        System.out.println("=====INIT DATA RUNNER DONE====");
     }
 }
