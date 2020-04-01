@@ -6,6 +6,8 @@ import com.hongchan.snsspringboot.board.CommentService;
 import com.hongchan.snsspringboot.board.LikesService;
 import com.hongchan.snsspringboot.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -26,13 +28,19 @@ public class TimelineService {
     @Autowired
     BoardRepository boardRepository;
 
-    public List<TimelineBoard> getTimelineBoardList(String username) {
-        final List<Timeline> timelineList = timelineRepository.findByUser_UsernameOrderByBoard_DateTimeDesc(username);
+    public List<TimelineBoard> getTimelineBoardList(String username, Pageable pageable) {
+        final Page<Timeline> timelinePage = timelineRepository.findAllByUser_Username(username, pageable);
 
-        System.out.println(timelineList.size());
+        System.out.println("==============");
+        System.out.println("ToTal Page " + timelinePage.getTotalPages());
+        System.out.println("ToTal Element " + timelinePage.getTotalElements());
+        for(Timeline timeline : timelinePage.getContent()) {
+            System.out.println(timeline.getBoard().getTitle());
+        }
+        System.out.println("==============");
 
         List<TimelineBoard> boardList = new ArrayList<>();
-        for(Timeline timeline : timelineList){
+        for(Timeline timeline : timelinePage.getContent()) {
             TimelineBoard timelineBoard = new TimelineBoard();
 
             timelineBoard.setBoard(timeline.getBoard());
