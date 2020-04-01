@@ -109,6 +109,22 @@ public class InitDataRunner implements ApplicationRunner {
             commentService.writeComment(jiyun, board, comment2);
         }
 
+        Board board = new Board();
+        board.setTitle("longlong title longlong title longlong title");
+        board.setContent("longlong content longlong content longlong content longlong content longlong content" +
+                "longlong content longlong contentlonglong contentlonglong content longlong content longlong content" +
+                "longlong content longlong content");
+        boardService.writePost(hongchan, board);
+
+        Comment comment1 = new Comment();
+        comment1.setContent("longlong comment longlong comment longlong comment longlong comment longlong comment longlong comment" +
+                "longlong comment longlong commentlonglong comment longlong comment ");
+        commentService.writeComment(taesu, board, comment1);
+
+        Comment comment2 = new Comment();
+        comment1.setContent("longlong comment longlong comment longlong comment longlong comment longlong comment longlong comment" +
+                "longlong comment longlong commentlonglong comment longlong comment ");
+
         /*
             지윤은 게시판1에 좋아요를 함
             지윤은 게시판1에 "댓글입니다 / (현재시간)" 댓글을 작성

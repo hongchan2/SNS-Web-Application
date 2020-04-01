@@ -18,7 +18,6 @@
 </head>
 
 <body>
-
 <div class="container">
     <div class="header clearfix">
         <nav>
@@ -31,6 +30,7 @@
         </nav>
         <h3 class="text-muted">Chanstagram</h3>
     </div>
+    <br>
 
     <div class="jumbotron">
         <h2 th:if="${boardlist.empty}">게시글이 없습니다 :(</h2>
@@ -42,32 +42,49 @@
         <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
         <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
         <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>
-<!--        <p><a class="btn btn-lg btn-success" href="#" role="button">바로가기</a></p>-->
     </div>
 
     <div class="row marketing">
 
-        <div class="col-lg-6" th:each="tboard : ${boardlist}">
-            <br><hr>
-
+        <div class="board col-lg-6" th:each="tboard : ${boardlist}">
             <h4>
-                <span>작성자 </span>
-                <a href="#" th:href="@{/user/} + ${tboard.username}" th:text="${tboard.username}"></a>
+                <a href="#" th:href="@{/user/} + ${tboard.username}" th:text="${tboard.username}"></a>&nbsp;&nbsp;&nbsp;
             </h4>
-            <p th:text="|작성 시간 ${#temporals.format(tboard.board.dateTime, 'yyyy-MM-dd HH:mm')}|"></p>
-            <p th:text="${tboard.board.title}">title</p>
-            <p th:text="${tboard.board.content}">content</p>
-            <p th:text="|좋아요 개수 ${#lists.size(tboard.likeList)}|"></p>
+            <h5>
+                <span th:text="|작성 시간 ${#temporals.format(tboard.board.dateTime, 'yyyy-MM-dd HH:mm')}|"></span>
+            </h5><hr>
+            <h3>
+                <p style="center;" th:text="${tboard.board.title}">title</p>
+            </h3><br>
+            <h4>
+                <p th:text="${tboard.board.content}">content</p>
+            </h4><br><br>
+            <h5>
+                <a id="heart" herf="#" class="doNotSupport">좋아요</a><span> 개수</span>
+                <span th:text="${#lists.size(tboard.likeList)}"></span>&nbsp;&nbsp;&nbsp;
 
-            <p th:text="|등록된 댓글 ${#lists.size(tboard.commentList)}|"></p>
+                <span>등록된 댓글</span>
+                <span th:text="${#lists.size(tboard.commentList)}"></span>
+            </h5>
+
+            <hr>
 
             <div th:each="comment : ${tboard.commentList}">
-                <p th:text="|작성 시간 ${#temporals.format(comment.dateTime, 'yyyy-MM-dd HH:mm')}|"></p>
-                <p th:text="${comment.username}"></p>
+                <h5>
+                    <a href="#" th:href="@{/user/} + ${comment.username}" th:text="${comment.username}"></a>&nbsp;&nbsp;&nbsp;
+                    <span th:text="|작성 시간 ${#temporals.format(comment.dateTime, 'yyyy-MM-dd HH:mm')}|"></span>
+                </h5>
                 <p th:text="${comment.content}"></p>
+                <hr>
             </div>
 
-            <br><hr>
+            <form class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="comment" placeholder="댓글을 입력해 주세요..." name="comment">
+                </div>
+                <button type="submit" class="btn btn-default doNotSupport">댓글 입력</button>
+            </form>
+
         </div>
 
 
@@ -93,17 +110,7 @@
 <script th:src="@{/webjars/jquery/2.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.6/dist/js/bootstrap.min.js}"></script>
 
-<!--<script type="text/javascript">-->
-<!--    let page = 0;-->
 
-<!--    $(window).scroll(function() {-->
-<!--        if ($(window).scrollTop() == $(document).height() - $(window).height()) {-->
-<!--            page++;-->
-<!--            load_feed_box(); // 박스 3개씩 로드-->
-<!--        }-->
-<!--    });-->
-
-<!--</script>-->
 
 </body>
 </html>

@@ -50,6 +50,19 @@ body {
     padding: 14px 24px;
     font-size: 21px;
 }
+.board {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 30px;
+    margin-bottom: 20px;
+    color: inherit;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #e5e5e5;
+    border-radius: 6px;
+}
+#heart {
+    color: #F0730E;
+}
 
 /* Supporting marketing content */
 .marketing {
