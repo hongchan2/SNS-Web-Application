@@ -74,14 +74,14 @@
 <script type="text/javascript" th:inline="javascript">
 
     /* <![CDATA[ */
-    var followUrl = /*[[ @{/follow/} + ${profileName} ]]*/ 'defaultUrl';
-    var unfollowUrl = /*[[ @{/unfollow/} + ${profileName} ]]*/ 'defaultUrl';
-    var csrfHeaderName = /*[[ ${_csrf.headerName} ]]*/ 'default';
-    var csrfToken = /*[[ ${_csrf.token} ]]*/ 'default';
+    const followUrl = /*[[ @{/follow/} + ${profileName} ]]*/ 'defaultUrl';
+    const unfollowUrl = /*[[ @{/unfollow/} + ${profileName} ]]*/ 'defaultUrl';
+    const csrfHeaderName = /*[[ ${_csrf.headerName} ]]*/ 'default';
+    const csrfToken = /*[[ ${_csrf.token} ]]*/ 'default';
 
     $("#follow").click(function(){
 
-        var requestUrl = '';
+        let requestUrl = '';
 
         if($("#follow").hasClass("btn-success") === true){
             // 팔로우 중인 상태
@@ -98,7 +98,6 @@
             url : requestUrl,
             type : "post",
             dataType : "json",
-            data : { "test" : "test" },
             beforeSend : function(xhr) {
                 // Spring Security Setting
 
@@ -115,16 +114,16 @@
                 if($("#follow").hasClass("btn-success") === true){
                     // 팔로우 -> 언팔로우 상태
 
-                    $("#follow").html("팔로우");
-                    $("#follow").removeClass("btn-success");
-                    $("#follow").addClass("btn-primary");
+                    $("#follow").html("팔로우")
+                        .removeClass("btn-success")
+                        .addClass("btn-primary");
                 }
                 else{
                     // 언팔로우 -> 팔로우 상태
 
-                    $("#follow").html("언팔로우");
-                    $("#follow").removeClass("btn-primary");
-                    $("#follow").addClass("btn-success");
+                    $("#follow").html("언팔로우")
+                        .removeClass("btn-primary")
+                        .addClass("btn-success");
                 }
             },
             error : function(request, status, error) {
