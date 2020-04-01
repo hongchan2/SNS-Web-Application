@@ -28,6 +28,15 @@ public class TimelineController {
 
         // TODO: 20개만 가져오고, 나머지는 AJAX 통신으로 갱신하기
 
+        /*
+            pageIndex
+            pageSie
+            startRow
+            endRow
+
+
+         */
+
         model.addAttribute("user", user);
         model.addAttribute("boardlist", boardList);
         return "timeline";

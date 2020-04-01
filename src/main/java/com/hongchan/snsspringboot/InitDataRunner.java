@@ -75,17 +75,27 @@ public class InitDataRunner implements ApplicationRunner {
         Board board1 = new Board();
         board1.setTitle("[Hongchan] Board1 Title");
         board1.setContent("Board1 Content");
-        boardService.writePost(board1, hongchan);
+        boardService.writePost(hongchan, board1);
 
         Board board2 = new Board();
         board2.setTitle("[Jiyun] Board2 Title");
         board2.setContent("Board2 Content");
-        boardService.writePost(board2, jiyun);
+        boardService.writePost(jiyun, board2);
 
         Board board3 = new Board();
         board3.setTitle("[Hongchan] Board3 Title");
         board3.setContent("Board3 Content");
-        boardService.writePost(board3, hongchan);
+        boardService.writePost(hongchan, board3);
+
+//        int loopCnt = 10000;
+        int loopCnt = 100;
+        for(int i = 0; i < loopCnt; i++) {
+            Board board = new Board();
+            board.setTitle("Test Title" + i);
+            board.setContent("Test Content" + i);
+            boardService.writePost(hongchan, board);
+        }
+        System.out.println("=====INIT DATA RUNNER DONE====");
 
         /*
             지윤은 게시판1에 좋아요를 함

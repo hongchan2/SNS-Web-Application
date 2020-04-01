@@ -22,20 +22,25 @@ public class BoardService {
     @Autowired
     FollowService followService;
 
-    public void writePost(Board board, User user) {
+    public void writePost(User user, Board board) {
         board.setDateTime(LocalDateTime.now());
         board.setWriteUser(user);
         boardRepository.save(board);
 
         // 해당 유저가 쓴 글은 해당 유저의 타임라인에 추가
-        timelineService.addTimeline(board, user);
+        timelineService.addTimeline(user, board);
 
         // 해당 유저를 팔로우하는 유저들(해당 유저의 팔로워들)의 타임라인에 추가
         List<Follower> followerList = followService.getFollowerList(user.getUsername());
+
         for(Follower follower : followerList) {
             User destUser = follower.getDestUser();
-            timelineService.addTimeline(board, destUser);
+            timelineService.addTimeline(destUser, board);
         }
+    }
+
+    public List<Board> getBoardList(String username) {
+        return boardRepository.findByWriteUser_Username(username);
     }
 
 }

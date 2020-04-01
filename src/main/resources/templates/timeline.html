@@ -32,11 +32,17 @@
         <h3 class="text-muted">Chanstagram</h3>
     </div>
 
-    <div class="jumbotron" th:if="${boardlist.empty}">
-        <br><br>
-        <h1>게시글이 없습니다 :(</h1>
-        <p class="lead">팔로우 추천 바로 가기</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">바로가기</a></p>
+    <div class="jumbotron">
+        <h2 th:if="${boardlist.empty}">게시글이 없습니다 :(</h2>
+        <p class="lead">팔로우 할 사용자 추천</p>
+        <h5>랜덤으로 5명의 사용자를 추천합니다.</h5>
+
+        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
+        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
+        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
+        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>&nbsp;
+        <a href="#" th:href="@{/user/} + ${user.username}" th:text="|${user.username}|">users</a>
+<!--        <p><a class="btn btn-lg btn-success" href="#" role="button">바로가기</a></p>-->
     </div>
 
     <div class="row marketing">
@@ -86,5 +92,18 @@
 
 <script th:src="@{/webjars/jquery/2.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/bootstrap/3.3.6/dist/js/bootstrap.min.js}"></script>
+
+<!--<script type="text/javascript">-->
+<!--    let page = 0;-->
+
+<!--    $(window).scroll(function() {-->
+<!--        if ($(window).scrollTop() == $(document).height() - $(window).height()) {-->
+<!--            page++;-->
+<!--            load_feed_box(); // 박스 3개씩 로드-->
+<!--        }-->
+<!--    });-->
+
+<!--</script>-->
+
 </body>
 </html>

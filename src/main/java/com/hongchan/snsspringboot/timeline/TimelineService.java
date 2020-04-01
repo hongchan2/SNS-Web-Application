@@ -1,6 +1,7 @@
 package com.hongchan.snsspringboot.timeline;
 
 import com.hongchan.snsspringboot.board.Board;
+import com.hongchan.snsspringboot.board.BoardRepository;
 import com.hongchan.snsspringboot.board.CommentService;
 import com.hongchan.snsspringboot.board.LikesService;
 import com.hongchan.snsspringboot.user.User;
@@ -22,8 +23,13 @@ public class TimelineService {
     @Autowired
     CommentService commentService;
 
+    @Autowired
+    BoardRepository boardRepository;
+
     public List<TimelineBoard> getTimelineBoardList(String username) {
         final List<Timeline> timelineList = timelineRepository.findByUser_UsernameOrderByBoard_DateTimeDesc(username);
+
+        System.out.println(timelineList.size());
 
         List<TimelineBoard> boardList = new ArrayList<>();
         for(Timeline timeline : timelineList){
@@ -40,10 +46,33 @@ public class TimelineService {
         return boardList;
     }
 
-    public void addTimeline(Board board, User user) {
+    public void addTimeline(User user, Board board) {
         Timeline timeline = new Timeline();
-        timeline.setBoard(board);
         timeline.setUser(user);
+        timeline.setBoard(board);
         timelineRepository.save(timeline);
     }
+
+    public void removeTimeline(User user, Board board) {
+        timelineRepository.deleteByUser_UsernameAndBoard_Id(user.getUsername(), board.getId());
+    }
+
+    // srcUser의 타임라인에 destUser의 게시물을 추가
+    public void afterFollowProcess(User srcUser, String username) {
+        final List<Board> boardList = boardRepository.findByWriteUser_Username(username);
+
+        for(Board board : boardList) {
+            addTimeline(srcUser, board);
+        }
+    }
+
+    // srcUser의 타임라인에서 destUser의 게시물을 삭제
+    public void afterUnfollowProcess(User srcUser, String username) {
+        List<Board> boardList = boardRepository.findByWriteUser_Username(username);
+
+        for(Board board : boardList) {
+            removeTimeline(srcUser, board);
+        }
+    }
+
 }

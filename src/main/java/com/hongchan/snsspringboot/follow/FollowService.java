@@ -1,5 +1,6 @@
 package com.hongchan.snsspringboot.follow;
 
+import com.hongchan.snsspringboot.timeline.TimelineService;
 import com.hongchan.snsspringboot.user.User;
 import com.hongchan.snsspringboot.user.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class FollowService {
 
     @Autowired
     UserAccountService userAccountService;
+
+    @Autowired
+    TimelineService timelineService;
 
     public List<Following> getFollowingList(String username) {
         return followingRepository.findBySrcUser_Username(username);
@@ -58,6 +62,9 @@ public class FollowService {
 
         followingRepository.save(following);
         followerRepository.save(follower);
+
+        // srcUser의 타임라인에 게시물 추가
+        timelineService.afterFollowProcess(srcUser, username);
     }
 
     public void unFollow(User srcUser, String username) {
@@ -65,6 +72,9 @@ public class FollowService {
 
         followingRepository.deleteBySrcUser_UsernameAndDestUser_Username(srcUser.getUsername(), destUser.getUsername());
         followerRepository.deleteBySrcUser_UsernameAndDestUser_Username(destUser.getUsername(), srcUser.getUsername());
+
+        // srcUser의 타임라인에 게시물 삭제
+        timelineService.afterUnfollowProcess(srcUser, username);
     }
 
 }
