@@ -1,4 +1,4 @@
-package com.hongchan.snsspringboot.board;
+package com.hongchan.snsspringboot.board.likes;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

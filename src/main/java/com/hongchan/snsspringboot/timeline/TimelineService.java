@@ -1,9 +1,9 @@
 package com.hongchan.snsspringboot.timeline;
 
 import com.hongchan.snsspringboot.board.*;
-import com.hongchan.snsspringboot.follow.FollowCntInfo;
+import com.hongchan.snsspringboot.board.comment.CommentService;
+import com.hongchan.snsspringboot.board.likes.LikesService;
 import com.hongchan.snsspringboot.follow.FollowService;
-import com.hongchan.snsspringboot.follow.Follower;
 import com.hongchan.snsspringboot.follow.Following;
 import com.hongchan.snsspringboot.user.User;
 import org.springframework.beans.factory.annotation.Autowired;

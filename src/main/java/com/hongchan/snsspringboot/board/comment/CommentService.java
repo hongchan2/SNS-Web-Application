@@ -1,5 +1,6 @@
-package com.hongchan.snsspringboot.board;
+package com.hongchan.snsspringboot.board.comment;
 
+import com.hongchan.snsspringboot.board.Board;
 import com.hongchan.snsspringboot.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

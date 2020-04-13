@@ -1,5 +1,6 @@
-package com.hongchan.snsspringboot.board;
+package com.hongchan.snsspringboot.board.likes;
 
+import com.hongchan.snsspringboot.board.Board;
 import lombok.Getter;
 import lombok.Setter;
 

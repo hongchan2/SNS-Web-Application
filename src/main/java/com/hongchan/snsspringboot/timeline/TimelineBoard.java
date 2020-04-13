@@ -1,9 +1,8 @@
 package com.hongchan.snsspringboot.timeline;
 
 import com.hongchan.snsspringboot.board.Board;
-import com.hongchan.snsspringboot.board.Comment;
-import com.hongchan.snsspringboot.board.Likes;
-import lombok.AllArgsConstructor;
+import com.hongchan.snsspringboot.board.comment.Comment;
+import com.hongchan.snsspringboot.board.likes.Likes;
 import lombok.Getter;
 import lombok.Setter;
 
