@@ -1,7 +1,5 @@
 package com.hongchan.snsspringboot.user;
 
-import com.hongchan.snsspringboot.follow.strategy.FollowerStrategy;
-import com.hongchan.snsspringboot.follow.strategy.SmallFollowerStrategy;
 import lombok.*;
 
 import javax.persistence.*;
